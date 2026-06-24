@@ -274,6 +274,17 @@ const carsData = [
         fuel: "Elektr",
         transmission: "Avtomat",
         description: "Futuristik dizayn, eng so'nggi aqlli texnologiyalar va sportcha dinamikaga ega premium elektromobil."
+    },
+    {
+        id: "bmw-m5-f90-777-abu",
+        name: "BMW M5 F90 (777 ABU)",
+        category: "sedan",
+        image: "m5.png",
+        engine: "4.4L V8 TwinPower",
+        year: 2021,
+        fuel: "Benzin",
+        transmission: "Avtomat",
+        description: "Mislsiz tezlik va dinamikaga ega afsonaviy sport sedani. BMW brendining eng mukammal texnik asarlaridan biri."
     }
 ];
 
