@@ -48,7 +48,7 @@ const carsData = [
         id: "hyundai-porter",
         name: "Hyundai Porter II",
         category: "commercial",
-        image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=600&q=80",
+        image: "porter.png",
         engine: "2.5L Diesel",
         year: 2016,
         fuel: "Dizel",
