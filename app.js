@@ -233,7 +233,7 @@ const carsData = [
     },
     {
         id: "chevrolet-spark",
-        name: "Chevrolet Spark",
+        name: "Chevrolet Spark (332 ADK)",
         category: "hatchback",
         image: "spark.png",
         engine: "1.25L",
