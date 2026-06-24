@@ -230,6 +230,17 @@ const carsData = [
         fuel: "Benzin",
         transmission: "Mexanika",
         description: "Qirg'iziston ko'chalarida afsonaviy, o'ta tejamkor va ixcham shahar mashinasi. Xizmat ko'rsatish juda oson va qulay."
+    },
+    {
+        id: "chevrolet-spark",
+        name: "Chevrolet Spark",
+        category: "hatchback",
+        image: "spark.png",
+        engine: "1.25L",
+        year: 2018,
+        fuel: "Benzin",
+        transmission: "Avtomat",
+        description: "Oq rangdagi zamonaviy va ixcham shahar xetchbeki. Qulay boshqaruv va kamxarjligi bilan ajralib turadi."
     }
 ];
 
