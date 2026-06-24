@@ -241,6 +241,17 @@ const carsData = [
         fuel: "Benzin",
         transmission: "Avtomat",
         description: "Oq rangdagi zamonaviy va ixcham shahar xetchbeki. Qulay boshqaruv va kamxarjligi bilan ajralib turadi."
+    },
+    {
+        id: "mercedes-s-class-777",
+        name: "Mercedes-Benz S-Class (777)",
+        category: "sedan",
+        image: "mercedes.png",
+        engine: "3.0L Biturbo",
+        year: 2023,
+        fuel: "Benzin",
+        transmission: "Avtomat",
+        description: "Mercedes-Benz oilasining eng so'nggi va hashamatli modeli. Yuqori texnologiyalar va mislsiz qulaylik uyg'unligi."
     }
 ];
 
