@@ -263,6 +263,17 @@ const carsData = [
         fuel: "Benzin",
         transmission: "Avtomat",
         description: "Afsonaviy yo'ltanlamas Gelandewagen. Kuchli dizayn, yuqori dinamika va mislsiz yo'ltanlamaslik qobiliyati."
+    },
+    {
+        id: "zeekr-001-777-abu",
+        name: "Zeekr 001 (777 ABU)",
+        category: "hybrid-electric",
+        image: "zeekr.png",
+        engine: "Dual Motor EV",
+        year: 2023,
+        fuel: "Elektr",
+        transmission: "Avtomat",
+        description: "Futuristik dizayn, eng so'nggi aqlli texnologiyalar va sportcha dinamikaga ega premium elektromobil."
     }
 ];
 
