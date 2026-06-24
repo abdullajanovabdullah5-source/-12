@@ -219,6 +219,17 @@ const carsData = [
         fuel: "Benzin",
         transmission: "Avtomat",
         description: "Sportiv ko'rinish va mislsiz yo'ltanlamaslik qobiliyatini birlashtirgan premium hashamatli SUV."
+    },
+    {
+        id: "daewoo-tico",
+        name: "Daewoo Tico",
+        category: "hatchback",
+        image: "tico.png",
+        engine: "0.8L",
+        year: 1998,
+        fuel: "Benzin",
+        transmission: "Mexanika",
+        description: "Qirg'iziston ko'chalarida afsonaviy, o'ta tejamkor va ixcham shahar mashinasi. Xizmat ko'rsatish juda oson va qulay."
     }
 ];
 
