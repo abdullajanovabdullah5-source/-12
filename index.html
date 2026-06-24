@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avto Osh — Premium Avtosalon | Qirg'iziston</title>
+    <meta name="description" content="O'sh shahridagi premium avtosalon. Qirg'izistonning eng ommabop va ishonchli 20 ta avtomobili. Hamyonbop narxlar, yuqori sifat va kafolat.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Leaflet.js Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-light">AVTO</span><span class="logo-dark">OSH</span>
+            </a>
+            
+            <button class="mobile-nav-toggle" aria-label="Menyu" id="mobileNavToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Bosh sahifa</a></li>
+                    <li><a href="#cars" class="nav-link">Avtomobillar</a></li>
+                    <li><a href="#about" class="nav-link">Biz haqimizda</a></li>
+                    <li><a href="#contact" class="nav-link">Aloqa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('hero.png');"></div>
+        <div class="container hero-container">
+            <div class="hero-content animate-on-scroll">
+                <span class="hero-tag">Premium Avtosalon</span>
+                <h1 class="hero-title">O'SH SHAHARIDAGI ENG ZO'R AVTOMOBILLAR</h1>
+                <p class="hero-subtitle">Qirg'iziston yo'llariga mos keladigan eng ishonchli, chidamli va hashamatli 20 ta eng mashhur avtomobil faqat bizda.</p>
+                <div class="hero-actions">
+                    <a href="#cars" class="btn btn-primary">Avtomobillarni ko'rish <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-secondary">Bog'lanish</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Pastga aylantiring</span>
+            <div class="mouse-icon">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container stats-container">
+            <div class="stat-item animate-on-scroll">
+                <h3 class="stat-number">20+</h3>
+                <p class="stat-label">Eng zo'r modellar</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item animate-on-scroll">
+                <h3 class="stat-number">100%</h3>
+                <p class="stat-label">Ishonchli sifat</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item animate-on-scroll">
+                <h3 class="stat-number">24/7</h3>
+                <p class="stat-label">Mijozlar qo'llab-quvvatlash</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cars Section -->
+    <section id="cars" class="cars-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Katalog</span>
+                <h2 class="section-title">ENG OMMABOP 20 TA AVTOMOBIL</h2>
+                <div class="title-line"></div>
+                <p class="section-subtitle">Qirg'iziston sharoitida sinovdan o'tgan, narx va sifat mutanosibligiga ega eng mashhur modellar.</p>
+            </div>
+
+            <!-- Controls (Search & Filter) -->
+            <div class="controls-wrapper animate-on-scroll">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="carSearch" placeholder="Model nomini yozing (masalan, Toyota)...">
+                </div>
+                <div class="filter-categories" id="filterCategories">
+                    <button class="filter-btn active" data-category="all">Barchasi</button>
+                    <button class="filter-btn" data-category="suv">Yo'ltanlamas (SUV)</button>
+                    <button class="filter-btn" data-category="sedan">Sedan</button>
+                    <button class="filter-btn" data-category="hatchback">Xetchbek</button>
+                    <button class="filter-btn" data-category="hybrid-electric">Gibrid & Elektr</button>
+                </div>
+            </div>
+
+            <!-- Cars Grid -->
+            <div class="cars-grid" id="carsGrid">
+                <!-- Cars will be generated via JavaScript for flexibility and clean structure -->
+            </div>
+            
+            <!-- No results message -->
+            <div id="noResults" class="no-results hidden">
+                <i class="fa-solid fa-car-tunnel"></i>
+                <p>Avtomobil topilmadi. Boshqa qidiruv so'zini sinab ko'ring.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Map Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-info animate-on-scroll">
+                    <span class="section-tag">Kompaniya haqida</span>
+                    <h2 class="section-title">AVTO OSH AFZALLIKLARI</h2>
+                    <div class="title-line"></div>
+                    <p class="about-text">
+                        <strong>Avto Osh</strong> — Qirg'izistonning janubiy poytaxti O'sh shahrida joylashgan premium avtosalondir. Biz mamlakatimiz iqlimi, tog'li relefi va yo'l infratuzilmasiga to'liq mos keladigan eng ishonchli avtomobillarni taqdim etamiz.
+                    </p>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <strong>Kafolatlangan sifat:</strong> Har bir avtomobil to'liq texnik ko'rikdan o'tkaziladi.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <strong>Mashhur modellar:</strong> Qirg'izistonda eng ko'p sotiladigan va ehtiyot qismlari osongina topiladigan modellar.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <div>
+                                <strong>Moslashuvchan to'lovlar:</strong> Naqd, lizing va bank orqali qulay kredit tizimlari.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="about-map-wrapper animate-on-scroll">
+                    <div class="map-card">
+                        <div class="map-header">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <div>
+                                <h4>Bizning Joylashuv</h4>
+                                <p>O'sh sh., Razzakov ko'chasi, 45-uy</p>
+                            </div>
+                        </div>
+                        <div id="map" class="map-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Aloqa</span>
+                <h2 class="section-title">BIZ BILAN BOG'LANING</h2>
+                <div class="title-line"></div>
+                <p class="section-subtitle">Savollaringiz bormi? Ma'lumotlaringizni qoldiring, biz siz bilan tez fursatda bog'lanamiz.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Info cards -->
+                <div class="contact-info-panel animate-on-scroll">
+                    <div class="info-card">
+                        <i class="fa-solid fa-phone info-icon"></i>
+                        <div class="info-details">
+                            <h4>Telefon raqam</h4>
+                            <p><a href="tel:+996555123456">+996 (555) 123-456</a></p>
+                            <p><a href="tel:+996777123456">+996 (777) 123-456</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <i class="fa-solid fa-envelope info-icon"></i>
+                        <div class="info-details">
+                            <h4>Email manzil</h4>
+                            <p><a href="mailto:info@avtoosh.kg">info@avtoosh.kg</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-clock info-icon"></i>
+                        <div class="info-details">
+                            <h4>Ish vaqti</h4>
+                            <p>Har kuni: 09:00 - 19:00</p>
+                            <p>Yakshanba: 10:00 - 17:00</p>
+                        </div>
+                    </div>
+
+                    <div class="socials-wrapper">
+                        <h4>Ijtimoiy tarmoqlarimiz</h4>
+                        <div class="social-links">
+                            <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://t.me" target="_blank" aria-label="Telegram" class="social-link"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="https://wa.me/996555123456" target="_blank" aria-label="WhatsApp" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="contact-form-panel animate-on-scroll">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Ismingiz</label>
+                            <input type="text" id="name" required placeholder="Ismingizni kiriting">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon raqamingiz</label>
+                            <input type="tel" id="phone" required placeholder="+996 (___) ___-___">
+                        </div>
+                        <div class="form-group">
+                            <label for="carSelect">Sizni qaysi avtomobil qiziqtirmoqda?</label>
+                            <select id="carSelect">
+                                <option value="" disabled selected>Tanlang...</option>
+                                <!-- Will be loaded via JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Xabar yoki savol (ixtiyoriy)</label>
+                            <textarea id="message" rows="4" placeholder="Qo'shimcha savollaringiz bo'lsa kiriting..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">So'rov yuborish <i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                    <div id="formSuccess" class="form-success-msg hidden">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h4>Rahmat! So'rovingiz qabul qilindi.</h4>
+                        <p>Tez orada menejerlarimiz siz bilan bog'lanishadi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <a href="#" class="logo">
+                    <span class="logo-light">AVTO</span><span class="logo-dark">OSH</span>
+                </a>
+                <p>Qirg'izistonda avtomobillar savdosi bo'yicha ishonchli hamkoringiz.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Tezkor havolalar</h4>
+                <ul>
+                    <li><a href="#home">Bosh sahifa</a></li>
+                    <li><a href="#cars">Avtomobillar</a></li>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#contact">Aloqa</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Avto Osh. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS Map Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
