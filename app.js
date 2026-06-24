@@ -252,6 +252,17 @@ const carsData = [
         fuel: "Benzin",
         transmission: "Avtomat",
         description: "Mercedes-Benz oilasining eng so'nggi va hashamatli modeli. Yuqori texnologiyalar va mislsiz qulaylik uyg'unligi."
+    },
+    {
+        id: "mercedes-g-class-777-abu",
+        name: "Mercedes-Benz G-Class (777 ABU)",
+        category: "suv",
+        image: "gclass.png",
+        engine: "4.0L V8 Biturbo",
+        year: 2021,
+        fuel: "Benzin",
+        transmission: "Avtomat",
+        description: "Afsonaviy yo'ltanlamas Gelandewagen. Kuchli dizayn, yuqori dinamika va mislsiz yo'ltanlamaslik qobiliyati."
     }
 ];
 
