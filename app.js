@@ -1,5 +1,5 @@
 // 20 Most Popular Cars in Kyrgyzstan Data
-const carsData = [
+const defaultCarsData = [
     {
         id: "land-cruiser-300",
         name: "Toyota Land Cruiser 300",
@@ -288,6 +288,9 @@ const carsData = [
     }
 ];
 
+// Load from LocalStorage if exists, otherwise load defaults
+let carsData = JSON.parse(localStorage.getItem('avto_osh_cars')) || defaultCarsData;
+
 // Document Elements
 const carsGrid = document.getElementById('carsGrid');
 const carSearch = document.getElementById('carSearch');
@@ -310,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMap();
     initAnimations();
     setupEventListeners();
+    initAdminPanel();
 });
 
 // Setup All Event Listeners
@@ -466,6 +470,7 @@ function renderCars() {
 
 // Populate Contact Form Car Dropdown
 function populateSelectDropdown() {
+    carSelectDropdown.innerHTML = '<option value="" disabled selected>Tanlang...</option>';
     carsData.forEach(car => {
         const option = document.createElement('option');
         option.value = car.id;
@@ -584,5 +589,157 @@ function highlightNavOnScroll() {
                 navLink.classList.add('active');
             }
         }
+    });
+}
+
+// Admin Panel Functionality
+function initAdminPanel() {
+    const adminLink = document.getElementById('adminLink');
+    const adminModal = document.getElementById('adminModal');
+    const closeAdminModal = document.getElementById('closeAdminModal');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminLoginState = document.getElementById('adminLoginState');
+    const adminDashboardState = document.getElementById('adminDashboardState');
+    const loginError = document.getElementById('loginError');
+    const addCarForm = document.getElementById('addCarForm');
+    const adminCarsTableBody = document.getElementById('adminCarsTableBody');
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    const adminTabs = document.querySelector('.admin-tabs');
+
+    // Open Modal
+    adminLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        adminModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Disable scroll
+    });
+
+    // Close Modal
+    const closeModal = () => {
+        adminModal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scroll
+        // Reset forms
+        adminLoginForm.reset();
+        addCarForm.reset();
+        loginError.classList.add('hidden');
+    };
+
+    closeAdminModal.addEventListener('click', closeModal);
+    adminModal.addEventListener('click', (e) => {
+        if (e.target === adminModal) {
+            closeModal();
+        }
+    });
+
+    // Login Form Submit
+    adminLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = document.getElementById('adminUser').value.trim();
+        const pass = document.getElementById('adminPass').value.trim();
+
+        if (user === 'admin' && pass === 'admin123') {
+            loginError.classList.add('hidden');
+            adminLoginState.classList.add('hidden');
+            adminDashboardState.classList.remove('hidden');
+            renderAdminCarsTable();
+        } else {
+            loginError.classList.remove('hidden');
+        }
+    });
+
+    // Admin Tabs Switcher
+    adminTabs.addEventListener('click', (e) => {
+        if (e.target.classList.contains('admin-tab-btn')) {
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(content => content.classList.add('hidden'));
+            
+            e.target.classList.add('active');
+            const targetTab = e.target.dataset.tab;
+            document.getElementById(targetTab).classList.remove('hidden');
+            
+            if (targetTab === 'manageCarsTab') {
+                renderAdminCarsTable();
+            }
+        }
+    });
+
+    // Add Car Form Submit
+    addCarForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('newCarName').value.trim();
+        const category = document.getElementById('newCarCategory').value;
+        const engine = document.getElementById('newCarEngine').value.trim();
+        const year = parseInt(document.getElementById('newCarYear').value);
+        const fuel = document.getElementById('newCarFuel').value.trim();
+        const transmission = document.getElementById('newCarTransmission').value.trim();
+        const desc = document.getElementById('newCarDesc').value.trim();
+        let image = document.getElementById('newCarImage').value.trim();
+
+        if (!image) {
+            image = 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80'; // fallback
+        }
+
+        const newCar = {
+            id: 'car-' + Date.now(),
+            name,
+            category,
+            image,
+            engine,
+            year,
+            fuel,
+            transmission,
+            description: desc
+        };
+
+        carsData.push(newCar);
+        localStorage.setItem('avto_osh_cars', JSON.stringify(carsData));
+        
+        // Re-render everything
+        renderCars();
+        populateSelectDropdown();
+        
+        // Reset form
+        addCarForm.reset();
+        alert('Mashina muvaffaqiyatli qo\'shildi!');
+    });
+
+    // Render Admin Manage Cars Table
+    function renderAdminCarsTable() {
+        adminCarsTableBody.innerHTML = '';
+        carsData.forEach(car => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="padding: 0.5rem; border-bottom: 1px solid var(--border-color); font-weight: 600;">${car.name}</td>
+                <td style="padding: 0.5rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">${car.year}-yil</td>
+                <td style="padding: 0.5rem; border-bottom: 1px solid var(--border-color); text-align: right;">
+                    <button class="btn-delete" data-id="${car.id}">O'chirish</button>
+                </td>
+            `;
+            adminCarsTableBody.appendChild(tr);
+        });
+    }
+
+    // Delete Car Action
+    adminCarsTableBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-delete')) {
+            const carId = e.target.dataset.id;
+            
+            if (confirm('Rostdan ham ushbu avtomobilni o\'chirmoqchimisiz?')) {
+                carsData = carsData.filter(car => car.id !== carId);
+                localStorage.setItem('avto_osh_cars', JSON.stringify(carsData));
+                
+                // Re-render
+                renderCars();
+                populateSelectDropdown();
+                renderAdminCarsTable();
+            }
+        }
+    });
+
+    // Logout
+    adminLogoutBtn.addEventListener('click', () => {
+        adminDashboardState.classList.add('hidden');
+        adminLoginState.classList.remove('hidden');
+        closeModal();
     });
 }

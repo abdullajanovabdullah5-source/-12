@@ -38,6 +38,7 @@
                     <li><a href="#cars" class="nav-link">Avtomobillar</a></li>
                     <li><a href="#about" class="nav-link">Biz haqimizda</a></li>
                     <li><a href="#contact" class="nav-link">Aloqa</a></li>
+                    <li><a href="#" class="nav-link" id="adminLink"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
                 </ul>
             </nav>
         </div>
@@ -279,6 +280,115 @@
             </div>
         </div>
     </footer>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="closeAdminModal">&times;</button>
+            
+            <!-- Login State -->
+            <div id="adminLoginState">
+                <h3 class="modal-title">Admin Tizimiga Kirish</h3>
+                <div class="title-line"></div>
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminUser">Login</label>
+                        <input type="text" id="adminUser" required placeholder="admin">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPass">Parol</label>
+                        <input type="password" id="adminPass" required placeholder="••••••••">
+                    </div>
+                    <div id="loginError" class="login-error-msg hidden">Login yoki parol noto'g'ri!</div>
+                    <button type="submit" class="btn btn-primary btn-block">Kirish</button>
+                </form>
+            </div>
+
+            <!-- Dashboard State -->
+            <div id="adminDashboardState" class="hidden">
+                <h3 class="modal-title">Admin Boshqaruv Paneli</h3>
+                <div class="title-line"></div>
+                
+                <div class="admin-tabs">
+                    <button class="admin-tab-btn active" data-tab="addCarTab">Mashina qo'shish</button>
+                    <button class="admin-tab-btn" data-tab="manageCarsTab">Mashinalarni boshqarish</button>
+                </div>
+
+                <!-- Add Car Tab -->
+                <div id="addCarTab" class="admin-tab-content">
+                    <form id="addCarForm" class="contact-form">
+                        <div class="form-row" style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarName">Mashina nomi</label>
+                                <input type="text" id="newCarName" required placeholder="Masalan: Chevrolet Gentra">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarCategory">Kategoriya</label>
+                                <select id="newCarCategory" required>
+                                    <option value="sedan">Sedan</option>
+                                    <option value="suv">Yo'ltanlamas (SUV)</option>
+                                    <option value="hatchback">Xetchbek</option>
+                                    <option value="commercial">Tijorat</option>
+                                    <option value="hybrid-electric">Gibrid & Elektr</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row" style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarEngine">Dvigatel</label>
+                                <input type="text" id="newCarEngine" required placeholder="Masalan: 1.5L">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarYear">Yili</label>
+                                <input type="number" id="newCarYear" required placeholder="Masalan: 2022">
+                            </div>
+                        </div>
+                        <div class="form-row" style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarFuel">Yoqilg'i</label>
+                                <input type="text" id="newCarFuel" required placeholder="Benzin, Gibrid, Elektr...">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="newCarTransmission">Uzatmalar qutisi</label>
+                                <input type="text" id="newCarTransmission" required placeholder="Avtomat, Mexanika...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newCarImage">Rasm URL (Yoki bo'sh qoldiring - standart rasm qo'yiladi)</label>
+                            <input type="text" id="newCarImage" placeholder="https://unsplash.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="newCarDesc">Tavsif</label>
+                            <textarea id="newCarDesc" rows="3" required placeholder="Mashina haqida qisqacha ma'lumot..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Katalogga qo'shish</button>
+                    </form>
+                </div>
+
+                <!-- Manage Cars Tab -->
+                <div id="manageCarsTab" class="admin-tab-content hidden">
+                    <div class="admin-cars-list-wrapper" style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem;">
+                        <table class="admin-cars-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid var(--border-color);">
+                                    <th style="padding: 0.5rem;">Nomi</th>
+                                    <th style="padding: 0.5rem;">Yili</th>
+                                    <th style="padding: 0.5rem; text-align: right;">Amal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminCarsTableBody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="admin-footer-actions" style="margin-top: 1.5rem;">
+                    <button class="btn btn-secondary btn-block" id="adminLogoutBtn">Tizimdan chiqish</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Leaflet JS Map Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
